@@ -1,32 +1,16 @@
 #include <stdio.h>
 #include <curses.h>
+#include "wed.h"
 
-#define X_MAX 12
-#define Y_MAX 40
-#define COORD_X 6
-#define COORD_Y 20
-
-typedef struct Position Position;
-
-struct Position {
-  int x;
-  int y;
-};
-
-Position make_position(int, int);
-Position get_new_positio(Position, int);
-Position compute_change(Position, Position);
-int out_of_bounds(Position, int, int);
-void draw_coords(WINDOW *, Position, int, int);
-
-void draw_coords(WINDOW *vin, Position cur_pos, int x, int y) {
+void draw_coords(WINDOW *vin, Position cur_pos) {
 
   char x_pos[20], y_pos[20], coords[40];
   snprintf(x_pos, sizeof(x_pos), "%d", cur_pos.x);
   snprintf(y_pos, sizeof(y_pos), "%d", cur_pos.y);
   strcpy(coords, x_pos);
+  strcat(coords, ",");
   strcat(coords, y_pos);
-  wmove(vin, COORD_Y, COORD_X);
+  wmove(vin, Y_MAX-1, (X_MAX*2)/3);
   wprintw(vin, coords);
 }
 
@@ -37,7 +21,7 @@ Position make_position(int x, int y)
 }
 
 int out_of_bounds(Position pos, int x_bound, int y_bound) {
-  if (pos.x > x_bound || pos.x < 0 || pos.y > y_bound || pos.y < 0)
+  if (pos.x > x_bound || pos.x < 0 || pos.y > y_bound-1 || pos.y < 0)
     return 1;
   else
     return 0;
@@ -63,7 +47,7 @@ Position get_new_position(Position pos, int ch)
       pos = make_position(0, 0);
   }
   
-  if (out_of_bounds(pos, X_MAX, Y_MAX-1))
+  if (out_of_bounds(pos, X_MAX-1, Y_MAX-1))
     pos = old_pos;
     
   
@@ -95,8 +79,8 @@ int main (void)
   while(ch != 1) {
 
     cur_pos = get_new_position(cur_pos, getch());
-    vin=newwin(X_MAX,Y_MAX,0,0);
-    draw_coords(vin, cur_pos, COORD_X, COORD_Y);
+    vin=newwin(Y_MAX,X_MAX,0,0);
+    draw_coords(vin, cur_pos);
     wmove(vin, cur_pos.y, cur_pos.x);
     wbkgd(vin, COLOR_PAIR(1));
     wrefresh(vin);
