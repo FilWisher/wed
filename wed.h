@@ -11,5 +11,6 @@ Position get_new_positio(Position, int);
 Position compute_change(Position, Position);
 int out_of_bounds(Position, int, int);
 void draw_coords(WINDOW *, Position);
+void draw_text(WINDOW *, char []);
 
 #endif

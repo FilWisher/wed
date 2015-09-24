@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <curses.h>
+#include <string.h>
 
 #include "config.h"
 #include "wed.h"
 
-void draw_coords(WINDOW *vin, Position cur_pos) {
+void draw_coords(WINDOW *win, Position cur_pos) {
 
   char x_pos[20], y_pos[20], coords[40];
   snprintf(x_pos, sizeof(x_pos), "%d", cur_pos.x);
@@ -12,8 +13,8 @@ void draw_coords(WINDOW *vin, Position cur_pos) {
   strcpy(coords, x_pos);
   strcat(coords, ",");
   strcat(coords, y_pos);
-  wmove(vin, Y_MAX-1, (X_MAX*2)/3);
-  wprintw(vin, coords);
+  wmove(win, Y_MAX-1, (X_MAX*2)/3);
+  wprintw(win, coords);
 }
 
 Position make_position(int x, int y)
@@ -63,10 +64,19 @@ Position compute_change(Position pos, Position change)
   return pos;
 }
 
+void draw_text(WINDOW *win, char *text) {
+	int i;
+	size_t text_length = strlen(text); 
+	wmove(win, 0, 0);
+	for (i = 0; i < text_length; i++) {
+		waddch(win, text[i]);
+	}
+}
+
 int main (void)
 {
   
-  WINDOW *vin;
+  WINDOW *win;
   
   Position cur_pos = make_position(1, 0); 
   int ch = 0;
@@ -74,19 +84,20 @@ int main (void)
   initscr();
   start_color();
   init_pair(1, COLOR_WHITE, COLOR_BLUE);
-  vin=newwin(12,40,0,0);
-  wmove(vin, 0, 5);
-  wbkgd(vin, COLOR_PAIR(1));
+  win=newwin(12,40,0,0);
+  wmove(win, 0, 5);
+  wbkgd(win, COLOR_PAIR(1));
   
   while(ch != 1) {
 
     cur_pos = get_new_position(cur_pos, getch());
-    vin=newwin(Y_MAX,X_MAX,0,0);
-    draw_coords(vin, cur_pos);
-    wmove(vin, cur_pos.y, cur_pos.x);
-    wbkgd(vin, COLOR_PAIR(1));
-    wrefresh(vin);
+    win=newwin(Y_MAX,X_MAX,0,0);
+    draw_coords(win, cur_pos);
+		draw_text(win, "Hey hjkl\nI am some mock text\n\nDAAAAYMN!!!");
+    wmove(win, cur_pos.y, cur_pos.x);
+    wbkgd(win, COLOR_PAIR(1));
+    wrefresh(win);
   }
-  delwin(vin);
+  delwin(win);
   endwin();
 }

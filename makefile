@@ -18,14 +18,15 @@ wed:
 	@echo CC -o $@
 	@$(CC) -o $@ $@.c $(LIBS) 
 
-lol:
-	@echo $(LIBS) 
-
-install:
-	@echo $(DESTDIR)$(PREFIX)/bin
-	#@mkdir -p $(DESTDIR)$(PREFIX)/bin
-	#@cp -f wed $(DESTDIR)$(PREFIX)/bin
-	#@chmod 755 $(DESTDIR)$(PREFIX)/bin/sandy
+install: all
+	@echo installing to $(DESTDIR)$(PREFIX)/bin
+	@mkdir -p $(DESTDIR)$(PREFIX)/bin
+	@cp -f wed $(DESTDIR)$(PREFIX)/bin
+	@chmod 755 $(DESTDIR)$(PREFIX)/bin/wed
+	
+uninstall:
+	@echo uninstalling from $(DESTDIR)$(PREFIX)/bin
+	@rm -f $(DESTDIR)$(PREFIX)/bin/wed
 	
 clean:
 	@echo cleaning
