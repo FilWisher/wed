@@ -16,7 +16,7 @@ options:
 	
 wed:
 	@echo CC -o $@
-	@$(CC) -o $@ $@.c $(LIBS)
+	@$(CC) -o $@ $@.c $(LIBS) 
 
 lol:
 	@echo $(LIBS) 

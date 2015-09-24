@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <curses.h>
+
+#include "config.h"
 #include "wed.h"
 
 void draw_coords(WINDOW *vin, Position cur_pos) {
