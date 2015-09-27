@@ -1,4 +1,4 @@
-#include "position.h"
+#include "position.c"
 
 Position compute_change(Position pos, Position change)
 {
