@@ -1,10 +1,10 @@
 /*
  * TODO: Define edit functions
- * TODO: Write files (and wtf is fflush)
  * TODO: Edit buffer via pointer to text[]
  * TODO: Write unit tests to check functionality
  * TODO: Check movement boundaries
  * TODO: Key combinations
+ * TODO: Letter input default in insert mode
  */
  
 /* INCLUDES */
@@ -250,7 +250,11 @@ l_keypress(void)
   
   while (key->val.c != ch && key->val.c != '\0')
     key++; 
-
+	
+	if (strcmp(editor_mode, "edit") == 0) {
+		//key->func = k_insert;
+		strncpy(key->arg.val, (char *)ch, sizeof(ch));
+	}
   key->func(&key->arg);
   return ch;
 }

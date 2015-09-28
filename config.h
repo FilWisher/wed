@@ -13,7 +13,7 @@ static Key command_keys[] = {
 
 static Key edit_keys[] = {
 /*  key         function           argument */
-  { ONLY('a'),  k_insert,       { .val = "a"            }},
+  { ONLY('a'),  k_insert,       { .val = "*ch*"         }},
   { ONLY('b'),  k_insert,       { .val = "b"            }},
   { ONLY('c'),  k_insert,       { .val = "c"            }},
   { ONLY('d'),  k_insert,       { .val = "d"            }},
