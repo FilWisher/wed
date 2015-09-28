@@ -8,7 +8,7 @@ CC = tcc
 OBJ = $(SRC:.c=.o)
 LIBS = -L/usr/lib -lc -lncurses
 
-all: options wed2
+all: options wed
 
 options:
 	@echo build options:
@@ -17,9 +17,6 @@ options:
 wed:
 	@echo CC -o $@
 	@$(CC) -o $@ $@.c $(LIBS) 
-
-wed2:
-	@$(CC) -o $@ $@.c $(LIBS)
 
 install: all
 	@echo installing to $(DESTDIR)$(PREFIX)/bin
@@ -33,4 +30,4 @@ uninstall:
 	
 clean:
 	@echo cleaning
-	@rm -f wed wed2 $(OBJ)
+	@rm -f wed $(OBJ)
