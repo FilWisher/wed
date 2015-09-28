@@ -1,10 +1,10 @@
 /*
- * TODO: Read/write files (and wtf is fflush)
  * TODO: Define edit functions
- * TODO: Draw text buffer into screen
+ * TODO: Write files (and wtf is fflush)
  * TODO: Edit buffer via pointer to text[]
  * TODO: Write unit tests to check functionality
  * TODO: Check movement boundaries
+ * TODO: Key combinations
  */
  
 /* INCLUDES */
@@ -88,16 +88,18 @@ static File file = { "-", "Welcome to Wed!" };
 
 /** FUNCTIONS **/
 /* k_* functions for keybinding functions */
+void k_save(Argument *);
 void k_move(Argument *);
 void k_change_mode(Argument *);
+void k_insert(Argument *);
 
 /* l_* functions for loop functions */
 int l_keypress(void);
 void l_redraw_screen(WINDOW *);
 
 /* f_* functions for file control */
-void *f_read_file(char *name);
-void *f_cleanup_file(void);
+void f_read_file(char *name);
+void f_cleanup_file(void);
 
 /* m_* movement functions */
 Position m_left_one(Position);
@@ -124,13 +126,32 @@ Position m_up_one(Position pos) { return UP(pos, 1); }
 Position m_down_one(Position pos) { return DOWN(pos, 1); }
 Position m_noop(Position pos) { return pos; }
 
-void *
+void
+k_save(Argument *arg)
+{
+	int fd;
+  if((fd = open(file.name, O_WRONLY, 0)) == -1) {
+		/* could not open file */	
+	} else {
+		write(fd, file.buf, BUFSIZE);		
+	}
+	close(fd);
+}
+
+void
+k_insert(Argument *arg)
+{
+	strcat(file.buf, arg->val);
+	cur_pos.col++;
+}
+
+void 
 f_read_file(char *name)
 {
 	int fd;
 	file.name = name;
 	file.buf = (char *)malloc(BUFSIZE);
-	if ((fd = open(name, O_RDWR, 0)) == -1) {
+	if ((fd = open(name, O_RDONLY, 0)) == -1) {
 		/* could not open file */	
 	}	else {
 		read(fd, file.buf, BUFSIZE);	
@@ -138,7 +159,7 @@ f_read_file(char *name)
 	close(fd);
 }
 
-void *
+void
 f_cleanup_file(void)
 {
 	free(file.buf);
