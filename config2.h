@@ -1,5 +1,3 @@
-/* TODO: access correct bindings according to mode (with macro?)  */
-
 #define ONLY(ch) { ch }
 
 static Key command_keys[] = {

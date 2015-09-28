@@ -1,8 +1,6 @@
 /*
  * TODO: Read/write files (and wtf is fflush)
- * TODO: Define key bindings in config.h
- * TODO: Define movement and edit functions
- * TODO: Check keypresses against keybindings
+ * TODO: Define edit functions
  * TODO: Draw text buffer into screen
  * TODO: Edit buffer via pointer to text[]
  * TODO: Write unit tests to check functionality
@@ -151,41 +149,6 @@ l_keypress(void)
     key++; 
 
   key->func(&key->arg);
-  //printf("char: %d\n", key->val.c);
-/* 
-  Keyset *key_bindings = get_key_bindings();
-  int keys_length = sizeof(key_bindings->mode_keys) / sizeof(Key);
-  //printf("mode %s\n", *key_bindings->mode);
-  */
-/*
-  for (i = 0; i <= keys_length; key = &key_bindings->mode_keys[i++]) {
-    if (ch == key->val.c) {
-      key->func(&key->arg);
-    }
-  } 
-  */
-/*
-  switch (ch) {
-    case 'h':
-      arg->pos = *m_left_one;
-      k_move(arg);
-      break;
-    case 'l':
-      arg->pos = *m_right_one;
-      k_move(arg);
-      break;
-    case 'k':
-      arg->pos = *m_up_one;
-      k_move(arg);
-      break;
-    case 'j':
-      arg->pos = *m_down_one;
-      k_move(arg);
-      break;
-    default:
-      ;
-  }
-*/ 
   return ch;
 }
 
