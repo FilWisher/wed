@@ -7,7 +7,7 @@ Wil's editor
 
 Main loop
 
-UI drawing
+UI drawings
 
 Key functions
 
