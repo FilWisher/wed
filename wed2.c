@@ -10,6 +10,7 @@
  
 /* INCLUDES */
 #include <stdio.h>
+#include <string.h>
 #include <curses.h>
 
 /* INCLUDES (local) */
@@ -38,7 +39,7 @@ typedef struct {
 } Statusline;
 
 typedef struct {
-  struct { 
+  union { 
     int c;
   } val;
   void (*func)(Argument *);
@@ -78,6 +79,7 @@ Position m_left_one(Position);
 Position m_right_one(Position);
 Position m_up_one(Position);
 Position m_down_one(Position);
+Position m_noop(Position);
 
 /* for keybindings */
 #include "config2.h"
@@ -91,6 +93,7 @@ Position m_left_one(Position pos) { return LEFT(pos, 1); }
 Position m_right_one(Position pos) { return RIGHT(pos, 1); }
 Position m_up_one(Position pos) { return UP(pos, 1); }
 Position m_down_one(Position pos) { return DOWN(pos, 1); }
+Position m_noop(Position pos) { return pos; }
 
 size_t
 size_of_string(char *string)
@@ -124,13 +127,15 @@ Keyset *
 get_key_bindings(void)
 {
   int i;
-  int bindings_length = sizeof(bindings) / sizeof(Keyset);
-  Keyset *mode_bindings;
-  for (i = 0; i <= bindings_length; mode_bindings = &bindings[i++]) {
-    if (editor_mode == mode_bindings->mode) {
-      return mode_bindings; 
+  int b_length = sizeof(bindings) / sizeof(Keyset);
+  Keyset *binding = bindings;
+
+  while(b_length--) {
+    if (strcmp(editor_mode, binding->mode) != 0) {
+      binding++;
     }
   }
+  return binding;
 }
 
 int
@@ -138,16 +143,27 @@ l_keypress(void)
 {
   int ch = getch(), i;
   Argument *arg;
-  const Key *key;
  
-  Keyset mode_bindings = get_key_bindings();
-  int bindings_length = sizeof(commands) / sizeof(Key);
+  Keyset *binding = get_key_bindings();
+  Key *key = binding->mode_keys;
+  
+  while (key->val.c != ch && key->val.c != '\0')
+    key++; 
 
-  for (i = 0; i <= bindings_length; key = &commands[i++]) {
+  key->func(&key->arg);
+  //printf("char: %d\n", key->val.c);
+/* 
+  Keyset *key_bindings = get_key_bindings();
+  int keys_length = sizeof(key_bindings->mode_keys) / sizeof(Key);
+  //printf("mode %s\n", *key_bindings->mode);
+  */
+/*
+  for (i = 0; i <= keys_length; key = &key_bindings->mode_keys[i++]) {
     if (ch == key->val.c) {
       key->func(&key->arg);
     }
   } 
+  */
 /*
   switch (ch) {
     case 'h':
