@@ -4,11 +4,12 @@
 
 PREFIX = /usr/local
 SRC = wed.c
-CC = tcc
+CC = gcc
 OBJ = $(SRC:.c=.o)
 LIBS = -L/usr/lib -lc -lncurses
+CFLAGS = -std=c99 -pedantic
 
-all: options wed
+all: options wed2 pl
 
 options:
 	@echo build options:
@@ -17,6 +18,14 @@ options:
 wed:
 	@echo CC -o $@
 	@$(CC) -o $@ $@.c $(LIBS) 
+
+wed2:
+	@echo CC -o $@
+	@$(CC) -o $@ $@.c $(LIBS) $(CFLAGS)
+
+pl:
+	@echo CC -o $@
+	@$(CC) -o $@ pl.c $(CFLAGS)
 
 install: all
 	@echo installing to $(DESTDIR)$(PREFIX)/bin
@@ -30,4 +39,4 @@ uninstall:
 	
 clean:
 	@echo cleaning
-	@rm -f wed $(OBJ)
+	@rm -f pl wed2 $(OBJ)
