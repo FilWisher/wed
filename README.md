@@ -5,14 +5,6 @@ Wil's editor
 
 ### Components:
 
-Main loop
+[0] [Data Structures for Text Sequences](https://www.cs.unm.edu/~crowley/papers/sds.pdf)
 
-UI drawings
-
-Key functions
-
-Key bindings
-
-Load text to buffer from file
-
-Write buffer to file
+[1] [Project Oberon](https://www.inf.ethz.ch/personal/wirth/ProjectOberon/PO.System.pdf)
