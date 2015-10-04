@@ -22,7 +22,7 @@ Basically I want sam but without the mouse (and a terminal interface instead)
 
 - [piece chains](https://github.com/filwisher/pisschin)
 - [client/daemon architecture](https://github.com/filwisher/lurker)
-- 
+
 ## implementation
 - client/server communication with named pipes (see [issue #8](https://github.com/FilWisher/wed/issues/8))
 - text management with piece chains
