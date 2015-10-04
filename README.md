@@ -21,7 +21,12 @@ Basically I want sam but without the mouse (and a terminal interface instead)
 ## research excursions
 
 - [piece chains](https://github.com/filwisher/pisschin)
-- [client/daemon architucture](https://github.com/filwisher/lurker)
+- [client/daemon architecture](https://github.com/filwisher/lurker)
+- 
+## implementation
+- client/server communication with named pipes (see [issue #8](https://github.com/FilWisher/wed/issues/8))
+- text management with piece chains
+- ... ?
 
 ## sources
 [0] [Data Structures for Text Sequences](https://www.cs.unm.edu/~crowley/papers/sds.pdf)
