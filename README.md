@@ -11,6 +11,8 @@ Wil's editor
 - all of unix land available within editor
 - structural regexp
 - multifile support
+- support for plumber-like utility
+- easy access to bash environment
 
 ## Other things maybe:
 - use X11 clipboard for cut n paste
