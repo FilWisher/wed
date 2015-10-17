@@ -8,7 +8,7 @@ Wil's editor
 - asynchronous daemon
 - piece-chain text manipulation
 - api open to all of unix land
-- all of unix land available within editor
+- all of unix land available within editor (exec[vp])
 - structural regexp
 - multifile support
 - support for plumber-like utility
