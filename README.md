@@ -29,6 +29,10 @@ Basically I want sam but without the mouse (and a terminal interface instead)
 - text management with piece chains
 - ... ?
 
+## roadmap
+- load and save text
+- receive basic edit commands from mock client ("./send-command 'raw commandstring'")
+
 ## sources
 [0] [Data Structures for Text Sequences](https://www.cs.unm.edu/~crowley/papers/sds.pdf)
 
